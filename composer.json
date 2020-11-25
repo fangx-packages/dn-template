@@ -48,6 +48,9 @@
                 "Fangx\\DnTemplate\\ServiceProvider"
             ],
             "aliases": []
+        },
+        "hyperf": {
+            "config": "Fangx\\DnTemplate\\ServiceProvider"
         }
     }
 }

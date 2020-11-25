@@ -35,31 +35,20 @@ if (class_exists(\Illuminate\Support\ServiceProvider::class)) {
     {
         public function __invoke(): array
         {
-            $source = __DIR__ . '/../publish';
-            $destination = BASE_PATH . '/public/dn-template';
-
-            $files = (new \Symfony\Component\Finder\Finder())->in($source)->ignoreDotFiles(true)->files();
-
-            $publish = [];
-
-            foreach ($files as $file) {
-                /** @var \Symfony\Component\Finder\SplFileInfo $file */
-                $filename = sprintf('%s/%s', $source, $file->getRelativePathname());
-                $publish[] = [
-                    'id' => $filename,
-                    'description' => $filename,
-                    'source' => $filename,
-                    'destination' => sprintf('%s/%s', $destination, $file->getRelativePathname()), // 复制为这个路径下的该文件
-                ];
-            }
-
             return [
                 'view' => [
                     'namespaces' => [
                         'dn-template' => __DIR__ . '/../resources/',
                     ],
                 ],
-                'publish' => $publish,
+                'publish' => [
+                    [
+                        'id' => 'dn-template',
+                        'description' => 'The DN-Template demo files.',
+                        'source' => __DIR__ . '/../publish',
+                        'destination' => BASE_PATH . '/public/dn-template',
+                    ],
+                ],
             ];
         }
     }
